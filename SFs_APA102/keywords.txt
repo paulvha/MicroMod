@@ -1,0 +1,40 @@
+#######################################
+# Syntax Coloring Map For APA102
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SFs_APA102	KEYWORD1
+leds	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+end	KEYWORD2
+show	KEYWORD2
+clear	KEYWORD2
+setPixelColor	KEYWORD2
+fill	KEYWORD2
+setBrightness	KEYWORD2
+setIntensity	KEYWORD2
+getLeds	KEYWORD2
+writeBuffer KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+Color	LITERAL1
+color_white	LITERAL1
+color_red	LITERAL1
+color_green	LITERAL1
+color_blue	LITERAL1
+color_orange	LITERAL1
+color_gold	LITERAL1
+color_purple	LITERAL1
+color_black	LITERAL1
+color_violet	LITERAL1

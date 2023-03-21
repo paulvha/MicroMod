@@ -1,0 +1,606 @@
+/**
+ * different songs/ tunes 
+ * Main source : https://www.hibit.dev/posts/62/playing-popular-songs-with-arduino-and-a-buzzer
+ */
+
+// notes in the melody:
+int bye_melody[] = {
+  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, REST, NOTE_B3, NOTE_C4
+};
+
+// note durations: 4 = quarter note, 8 = eighth note, etc.:
+int bye_durations[] = {
+  4, 8, 8, 4, 4, 4, 4, 4
+};
+
+
+// determine length to play
+uint16_t bye_length = sizeof(bye_melody) / sizeof(int);
+///////////////////////////////////////////////////////////////////
+int La_melody[] = {
+  NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4,
+  NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4,
+  NOTE_C4
+};
+
+int La_durations[] = {
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1
+};
+
+// determine length to play
+uint16_t La_length = sizeof(La_melody) / sizeof(int);
+
+////////////////////////////////////////////////////////////////////
+int Mc_melody[] = {
+  NOTE_E5, NOTE_E5, NOTE_E5,
+  NOTE_E5, NOTE_E5, NOTE_E5,
+  NOTE_E5, NOTE_G5, NOTE_C5, NOTE_D5,
+  NOTE_E5,
+  NOTE_F5, NOTE_F5, NOTE_F5, NOTE_F5,
+  NOTE_F5, NOTE_E5, NOTE_E5, NOTE_E5, NOTE_E5,
+  NOTE_E5, NOTE_D5, NOTE_D5, NOTE_E5,
+  NOTE_D5, NOTE_G5
+};
+
+int Mc_durations[] = {
+  8, 8, 4,
+  8, 8, 4,
+  8, 8, 8, 8,
+  2,
+  8, 8, 8, 8,
+  8, 8, 8, 16, 16,
+  8, 8, 8, 8,
+  4, 4
+};
+
+uint16_t Mc_length = sizeof(Mc_melody) / sizeof(int);
+///////////////////////////////////////////////////////////////////////
+
+int Hp_melody[] = {
+  NOTE_C4, NOTE_C4, 
+  NOTE_D4, NOTE_C4, NOTE_F4,
+  NOTE_E4, NOTE_C4, NOTE_C4, 
+  NOTE_D4, NOTE_C4, NOTE_G4,
+  NOTE_F4, NOTE_C4, NOTE_C4,
+  
+  NOTE_C5, NOTE_A4, NOTE_F4, 
+  NOTE_E4, NOTE_D4, NOTE_AS4, NOTE_AS4,
+  NOTE_A4, NOTE_F4, NOTE_G4,
+  NOTE_F4
+};
+
+int Hp_durations[] = {
+  4, 8, 
+  4, 4, 4,
+  2, 4, 8, 
+  4, 4, 4,
+  2, 4, 8,
+  
+  4, 4, 4, 
+  4, 4, 4, 8,
+  4, 4, 4,
+  2
+};
+uint16_t Hp_length = sizeof(Hp_melody) / sizeof(int);
+//////////////////////////////////////////////////////////////////////////
+
+int No_melody[] = {
+  NOTE_E5, NOTE_D5, NOTE_FS4, NOTE_GS4, 
+  NOTE_CS5, NOTE_B4, NOTE_D4, NOTE_E4, 
+  NOTE_B4, NOTE_A4, NOTE_CS4, NOTE_E4,
+  NOTE_A4
+};
+
+int No_durations[] = {
+  8, 8, 4, 4,
+  8, 8, 4, 4,
+  8, 8, 4, 4,
+  2
+};
+
+uint16_t No_length = sizeof(No_melody) / sizeof(int);
+//////////////////////////////////////////////////////////////////
+
+int Mb_melody[] = {
+  NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5,
+  NOTE_G5, REST, NOTE_G4, REST, 
+  NOTE_C5, NOTE_G4, REST, NOTE_E4,
+  NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+  NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+  REST, NOTE_E5,NOTE_C5, NOTE_D5, NOTE_B4,
+  NOTE_C5, NOTE_G4, REST, NOTE_E4,
+  NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+  NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+  REST, NOTE_E5,NOTE_C5, NOTE_D5, NOTE_B4,
+  
+  REST, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_DS5, NOTE_E5,
+  REST, NOTE_GS4, NOTE_A4, NOTE_C4, REST, NOTE_A4, NOTE_C5, NOTE_D5,
+  REST, NOTE_DS5, REST, NOTE_D5,
+  NOTE_C5, REST,
+  
+  REST, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_DS5, NOTE_E5,
+  REST, NOTE_GS4, NOTE_A4, NOTE_C4, REST, NOTE_A4, NOTE_C5, NOTE_D5,
+  REST, NOTE_DS5, REST, NOTE_D5,
+  NOTE_C5, REST,
+  
+  NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5,
+  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+  
+  NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5, NOTE_E5,
+  REST, 
+  NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5,
+  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+  NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5,
+  NOTE_G5, REST, NOTE_G4, REST, 
+  NOTE_C5, NOTE_G4, REST, NOTE_E4,
+  
+  NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+  NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+  REST, NOTE_E5, NOTE_C5, NOTE_D5, NOTE_B4,
+  
+  NOTE_C5, NOTE_G4, REST, NOTE_E4,
+  NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
+  NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
+  REST, NOTE_E5, NOTE_C5, NOTE_D5, NOTE_B4,
+  
+  NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+  NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+  NOTE_D5, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_G5, NOTE_F5,
+  
+  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+  NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+  NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+  NOTE_B4, NOTE_F5, NOTE_F5, NOTE_F5, NOTE_E5, NOTE_D5,
+  NOTE_C5, NOTE_E4, NOTE_E4, NOTE_C4,
+  
+  NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+  NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+  NOTE_D5, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_G5, NOTE_F5,
+  
+  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+  NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+  NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+  NOTE_B4, NOTE_F5, NOTE_F5, NOTE_F5, NOTE_E5, NOTE_D5,
+  NOTE_C5, NOTE_E4, NOTE_E4, NOTE_C4,
+  NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5, NOTE_E5,
+  REST,
+  
+  NOTE_C5, NOTE_C5, NOTE_C5, REST, NOTE_C5, NOTE_D5,
+  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+  NOTE_E5, NOTE_E5, REST, NOTE_E5, REST, NOTE_C5, NOTE_E5,
+  NOTE_G5, REST, NOTE_G4, REST, 
+  NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+  NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+  NOTE_D5, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_G5, NOTE_F5,
+  
+  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
+  NOTE_E5, NOTE_C5, NOTE_G4, REST, NOTE_GS4,
+  NOTE_A4, NOTE_F5, NOTE_F5, NOTE_A4,
+  NOTE_B4, NOTE_F5, NOTE_F5, NOTE_F5, NOTE_E5, NOTE_D5,
+  NOTE_C5, NOTE_E4, NOTE_E4, NOTE_C4,
+  
+  // Game over sound
+  NOTE_C5, NOTE_G4, NOTE_E4,
+  NOTE_A4, NOTE_B4, NOTE_A4, NOTE_GS4, NOTE_AS4, NOTE_GS4,
+  NOTE_G4, NOTE_D4, NOTE_E4
+};
+
+uint16_t Mb_length = sizeof(Mb_melody) / sizeof(int);
+
+int Mb_durations[] = {
+  8, 8, 8, 8, 8, 8, 8,
+  4, 4, 8, 4, 
+  4, 8, 4, 4,
+  4, 4, 8, 4,
+  8, 8, 8, 4, 8, 8,
+  8, 4,8, 8, 4,
+  4, 8, 4, 4,
+  4, 4, 8, 4,
+  8, 8, 8, 4, 8, 8,
+  8, 4,8, 8, 4,
+  
+  
+  4, 8, 8, 8, 4, 8,
+  8, 8, 8, 8, 8, 8, 8, 8,
+  4, 4, 8, 4,
+  2, 2,
+  
+  4, 8, 8, 8, 4, 8,
+  8, 8, 8, 8, 8, 8, 8, 8,
+  4, 4, 8, 4,
+  2, 2,
+  
+  8, 4, 8, 8, 8, 4,
+  8, 4, 8, 2,
+  
+  8, 4, 8, 8, 8, 8, 8,
+  1, 
+  8, 4, 8, 8, 8, 4,
+  8, 4, 8, 2,
+  8, 8, 8, 8, 8, 8, 4,
+  4, 4, 4, 4, 
+  4, 8, 4, 4,
+  
+  4, 4, 8, 4,
+  8, 8, 8, 4, 8, 8,
+  8, 4, 8, 8, 4,
+  
+  4, 8, 4, 4,
+  4, 4, 8, 4,
+  8, 8, 8, 4, 8, 8,
+  8, 4, 8, 8, 4,
+  
+  8, 4, 8, 4, 4,
+  8, 4, 8, 2,
+  8, 8, 8, 8, 8, 8,
+  
+  8, 4, 8, 2,
+  8, 4, 8, 4, 4,
+  8, 4, 8, 2,
+  8, 4, 8, 8, 8, 8,
+  8, 4, 8, 2,
+  
+  8, 4, 8, 4, 4,
+  8, 4, 8, 2,
+  8, 8, 8, 8, 8, 8,
+  
+  8, 4, 8, 2,
+  8, 4, 8, 4, 4,
+  8, 4, 8, 2,
+  8, 4, 8, 8, 8, 8,
+  8, 4, 8, 2,
+  8, 4, 8, 8, 8, 8, 8,
+  1,
+  
+  8, 4, 8, 8, 8, 4,
+  8, 4, 8, 2,
+  8, 8, 8, 8, 8, 8, 4,
+  4, 4, 4, 4, 
+  8, 4, 8, 4, 4,
+  8, 4, 8, 2,
+  8, 8, 8, 8, 8, 8,
+  
+  8, 4, 8, 2,
+  8, 4, 8, 4, 4,
+  8, 4, 8, 2,
+  8, 4, 8, 8, 8, 8,
+  8, 4, 8, 2,
+  
+  //game over sound
+  4, 4, 4,
+  8, 8, 8, 8, 8, 8,
+  8, 8, 2
+};
+/////////////////////////////////////////////////////////////////////////
+
+int Pp_melody[] = {
+  REST, REST, REST, NOTE_DS4, 
+  NOTE_E4, REST, NOTE_FS4, NOTE_G4, REST, NOTE_DS4,
+  NOTE_E4, NOTE_FS4,  NOTE_G4, NOTE_C5, NOTE_B4, NOTE_E4, NOTE_G4, NOTE_B4,   
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_E4, NOTE_D4, 
+  NOTE_E4, REST, REST, NOTE_DS4,
+  
+  NOTE_E4, REST, NOTE_FS4, NOTE_G4, REST, NOTE_DS4,
+  NOTE_E4, NOTE_FS4,  NOTE_G4, NOTE_C5, NOTE_B4, NOTE_G4, NOTE_B4, NOTE_E5,
+  NOTE_DS5,   
+  NOTE_D5, REST, REST, NOTE_DS4, 
+  NOTE_E4, REST, NOTE_FS4, NOTE_G4, REST, NOTE_DS4,
+  NOTE_E4, NOTE_FS4,  NOTE_G4, NOTE_C5, NOTE_B4, NOTE_E4, NOTE_G4, NOTE_B4,   
+  
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_E4, NOTE_D4, 
+  NOTE_E4, REST,
+  REST, NOTE_E5, NOTE_D5, NOTE_B4, NOTE_A4, NOTE_G4, NOTE_E4,
+  NOTE_AS4, NOTE_A4, NOTE_AS4, NOTE_A4, NOTE_AS4, NOTE_A4, NOTE_AS4, NOTE_A4,   
+  NOTE_G4, NOTE_E4, NOTE_D4, NOTE_E4, NOTE_E4, NOTE_E4
+};
+
+uint16_t Pp_length = sizeof(Pp_melody) / sizeof(int);
+
+int Pp_durations[] = {
+  2, 4, 8, 8, 
+  4, 8, 8, 4, 8, 8,
+  8, 8,  8, 8, 8, 8, 8, 8,   
+  2, 16, 16, 16, 16, 
+  2, 4, 8, 4,
+  
+  4, 8, 8, 4, 8, 8,
+  8, 8,  8, 8, 8, 8, 8, 8,
+  1,   
+  2, 4, 8, 8, 
+  4, 8, 8, 4, 8, 8,
+  8, 8,  8, 8, 8, 8, 8, 8,   
+  
+  2, 16, 16, 16, 16, 
+  4, 4,
+  4, 8, 8, 8, 8, 8, 8,
+  16, 8, 16, 8, 16, 8, 16, 8,   
+  16, 16, 16, 16, 16, 2
+};
+/////////////////////////////////////////////////////////
+
+int Ls_melody[] = {
+  NOTE_F4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_C4,
+  NOTE_C4,
+  
+  NOTE_F4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_C4,
+  NOTE_C4,  REST, NOTE_A4,
+  
+  NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4,
+  NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4,
+  NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4,
+  NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4,
+  
+  NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4,
+  NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4, NOTE_AS4,
+  NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4,
+  NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_G4,
+  
+  NOTE_F4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_G4, NOTE_F4, NOTE_A4,
+  NOTE_G4,
+  NOTE_C5, NOTE_A4, NOTE_G4, NOTE_A4, NOTE_C5,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_G4, NOTE_F4, NOTE_A4,
+  NOTE_G4,
+  
+  NOTE_C5,
+  NOTE_C5, NOTE_AS4, NOTE_C5, NOTE_AS4,
+  NOTE_A4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_C4,
+  NOTE_C4,
+  
+  REST, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, 
+  NOTE_D4,
+  REST, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, 
+  NOTE_D4,
+  
+  NOTE_F4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_G4, NOTE_F4, NOTE_A4,
+  NOTE_G4,
+  NOTE_C5, NOTE_A4, NOTE_G4, NOTE_A4, NOTE_C5,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_G4, NOTE_F4, NOTE_A4,
+  NOTE_G4,
+  
+  NOTE_C5,
+  NOTE_C5, NOTE_AS4, NOTE_C5, NOTE_AS4,
+  NOTE_A4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_C4,
+  NOTE_C4,
+  
+  REST, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, 
+  NOTE_D4,
+  REST, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, 
+  NOTE_D4,
+  
+  NOTE_F4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_C4,
+  NOTE_C4, 
+  
+  NOTE_F4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_G4, NOTE_F4, NOTE_A4,
+  NOTE_G4,
+  NOTE_C5, NOTE_A4, NOTE_G4, NOTE_A4, NOTE_C5,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_G4, NOTE_F4, NOTE_A4,
+  NOTE_G4,
+  
+  NOTE_C5,
+  NOTE_C5, NOTE_AS4, NOTE_C5, NOTE_AS4,
+  NOTE_A4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_C4,
+  NOTE_C4,
+  
+  REST, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, 
+  NOTE_D4,
+  REST, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, 
+  NOTE_D4,
+  
+  NOTE_F4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_G4,
+  NOTE_A4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_C4,
+  NOTE_C4
+};
+
+uint16_t Ls_length = sizeof(Ls_melody) / sizeof(int);
+
+int Ls_durations[] = {
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 8, 4, 8, 4,
+  1,
+  
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 8, 4, 8, 4,
+  2, 8, 16,
+  
+  8, 16, 8, 16, 8, 16, 8, 16,
+  8, 16, 8, 16, 8, 16, 8, 16,
+  8, 16, 8, 16, 8, 16, 8, 16,
+  8, 16, 8, 16, 8, 16, 8, 16,
+  
+  8, 16, 8, 16, 8, 16, 8, 16,
+  8, 16, 8, 16, 8, 16, 8, 16,
+  8, 16, 8, 16, 8, 16, 8, 16,
+  8, 16, 8, 16, 8, 16, 8, 16,
+  
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 4, 4, 4,
+  1,
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 4, 4, 4,
+  1,
+  
+  1,
+  4, 8, 8, 2,
+  4, 8, 4, 8, 4,
+  1,
+  
+  4, 8, 8, 8, 8, 8, 8, 
+  1,
+  4, 8, 8, 8, 8, 8, 8, 
+  1,
+  
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 4, 4, 4,
+  1,
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 4, 4, 4,
+  1,
+  
+  1,
+  4, 8, 8, 2,
+  4, 8, 4, 8, 4,
+  1,
+  
+  4, 8, 8, 8, 8, 8, 8, 
+  1,
+  4, 8, 8, 8, 8, 8, 8, 
+  1,
+  
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 8, 4, 8, 4,
+  1, 
+  
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 4, 4, 4,
+  1,
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 4, 4, 4,
+  1,
+  
+  1,
+  4, 8, 8, 2,
+  4, 8, 4, 8, 4,
+  1,
+  
+  4, 8, 8, 8, 8, 8, 8, 
+  1,
+  4, 8, 8, 8, 8, 8, 8, 
+  1,
+  
+  4, 4, 8, 4, 8,
+  4, 4, 8, 4, 8,
+  4, 8, 4, 8, 4,
+  1
+};
+//////////////////////////////////////////////////
+
+int Sw_melody[] = {
+  NOTE_AS4, NOTE_AS4, NOTE_AS4,
+  NOTE_F5, NOTE_C6,
+  NOTE_AS5, NOTE_A5, NOTE_G5, NOTE_F6, NOTE_C6,
+  NOTE_AS5, NOTE_A5, NOTE_G5, NOTE_F6, NOTE_C6,
+  NOTE_AS5, NOTE_A5, NOTE_AS5, NOTE_G5, NOTE_C5, NOTE_C5, NOTE_C5,
+  NOTE_F5, NOTE_C6,
+  NOTE_AS5, NOTE_A5, NOTE_G5, NOTE_F6, NOTE_C6,
+
+  NOTE_AS5, NOTE_A5, NOTE_G5, NOTE_F6, NOTE_C6,
+  NOTE_AS5, NOTE_A5, NOTE_AS5, NOTE_G5, NOTE_C5, NOTE_C5,
+  NOTE_D5, NOTE_D5, NOTE_AS5, NOTE_A5, NOTE_G5, NOTE_F5,
+  NOTE_F5, NOTE_G5, NOTE_A5, NOTE_G5, NOTE_D5, NOTE_E5, NOTE_C5, NOTE_C5,
+  NOTE_D5, NOTE_D5, NOTE_AS5, NOTE_A5, NOTE_G5, NOTE_F5,
+
+  NOTE_C6, NOTE_G5, NOTE_G5, REST, NOTE_C5,
+  NOTE_D5, NOTE_D5, NOTE_AS5, NOTE_A5, NOTE_G5, NOTE_F5,
+  NOTE_F5, NOTE_G5, NOTE_A5, NOTE_G5, NOTE_D5, NOTE_E5, NOTE_C6, NOTE_C6,
+  NOTE_F6, NOTE_DS6, NOTE_CS6, NOTE_C6, NOTE_AS5, NOTE_GS5, NOTE_G5, NOTE_F5,
+  NOTE_C6
+};
+
+uint16_t Sw_length = sizeof(Sw_melody) / sizeof(int);
+int Sw_durations[] = {
+  8, 8, 8,
+  2, 2,
+  8, 8, 8, 2, 4,
+  8, 8, 8, 2, 4,
+  8, 8, 8, 2, 8, 8, 8,
+  2, 2,
+  8, 8, 8, 2, 4,
+
+  8, 8, 8, 2, 4,
+  8, 8, 8, 2, 8, 16,
+  4, 8, 8, 8, 8, 8,
+  8, 8, 8, 4, 8, 4, 8, 16,
+  4, 8, 8, 8, 8, 8,
+
+  8, 16, 2, 8, 8,
+  4, 8, 8, 8, 8, 8,
+  8, 8, 8, 4, 8, 4, 8, 16,
+  4, 8, 4, 8, 4, 8, 4, 8,
+  1
+};
+///////////////////////////////////////////////////
+
+int Es_melody[] = {
+  NOTE_CS4, NOTE_E4, NOTE_CS4, NOTE_CS4, NOTE_E4,
+  NOTE_CS4, NOTE_CS4, NOTE_E4, NOTE_CS4, NOTE_DS4,
+  NOTE_CS4, NOTE_CS4, NOTE_E4, NOTE_CS4,
+  NOTE_B3,
+  NOTE_CS4, NOTE_E4, NOTE_CS4, NOTE_CS4, NOTE_E4,
+  NOTE_CS4, NOTE_DS4, NOTE_CS4, NOTE_E4,
+  NOTE_B3,
+  NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4,
+  NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_GS4,
+  NOTE_GS4, NOTE_E4, NOTE_FS4, NOTE_B4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4,
+  NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_GS4, NOTE_FS4,
+  NOTE_E4, NOTE_CS4, NOTE_CS4, NOTE_GS4, NOTE_GS4,
+  NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_GS4,
+  NOTE_GS4, NOTE_B4, NOTE_GS4, NOTE_GS4, NOTE_FS4, NOTE_FS4, NOTE_E4, NOTE_GS4,
+  NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_B4, NOTE_GS4, NOTE_GS4, NOTE_GS4, NOTE_FS4,
+  NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_FS4, NOTE_FS4,
+  NOTE_E4, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_CS4,
+  NOTE_GS3, NOTE_B3,
+  NOTE_CS4, NOTE_CS4, NOTE_FS4, NOTE_GS4, NOTE_E4, NOTE_FS4,
+  NOTE_B3,
+  NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_CS4, NOTE_E4, NOTE_GS4,
+  NOTE_FS4, NOTE_E4, NOTE_FS4, NOTE_CS4, NOTE_B4, NOTE_GS4, NOTE_GS4, NOTE_FS4, NOTE_FS4,
+  NOTE_E4, NOTE_CS4, NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4,
+  NOTE_FS4, NOTE_E4, NOTE_CS4, NOTE_CS4,
+  NOTE_B3,
+  NOTE_CS4, NOTE_CS4, NOTE_FS4, NOTE_GS4, NOTE_E4, NOTE_FS4, NOTE_FS4,
+  NOTE_B3,
+  NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_CS4, NOTE_E4, NOTE_GS4, NOTE_FS4,
+  NOTE_E4, NOTE_FS4, NOTE_CS4, NOTE_B4, NOTE_GS4, NOTE_GS4, NOTE_FS4, NOTE_FS4, NOTE_E4,
+  NOTE_CS4, NOTE_B4, NOTE_GS4, NOTE_GS4, NOTE_FS4, NOTE_FS4, NOTE_E4,
+  NOTE_CS4, NOTE_CS4,
+  NOTE_GS3, NOTE_B3,
+  NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_FS4,
+  NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_FS4|
+  NOTE_CS4, NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_CS4,
+  NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_FS4, NOTE_E4, NOTE_FS4, NOTE_GS4,
+  NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_CS4, NOTE_CS4,
+  NOTE_FS4, NOTE_GS4, NOTE_B4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_FS4,
+  NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_FS4,
+  NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_CS4, NOTE_E4,
+  NOTE_FS4, NOTE_E4, NOTE_FS4, NOTE_E4, NOTE_FS4, NOTE_GS4,
+  NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_E4, NOTE_E4,
+  NOTE_FS4, NOTE_FS4, NOTE_GS4, NOTE_GS4,
+  NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_CS4, NOTE_CS4,
+  NOTE_CS4, NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_FS4, NOTE_GS4,
+  NOTE_GS4, NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4,
+  NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_E4, NOTE_E4,
+  NOTE_FS4, NOTE_FS4, NOTE_GS4, NOTE_GS4,
+  NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_FS4, NOTE_E4, NOTE_E4, NOTE_FS4, NOTE_CS4, NOTE_CS4,
+  NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_CS4, NOTE_E4, NOTE_FS4, NOTE_GS4, NOTE_CS4, NOTE_E4, NOTE_FS4,
+  NOTE_CS4,
+};
+
+int Es_durations[] = {
+  2,2,4,2,2,4,2,2,4,2,2,2,2,2,2,2,2,4,2,2,4,2,2,2,2,8,8,4,4,8,8,8,8,8,8,8,2,8,8,4,2,8,8,4,8,8,8,4,4,8,8,8,8,8,4,8,4,8,8,8,8,4,2,8,8,8,8,4,8,8,8,8,8,8,2,8,4,8,8,8,8,8,2,4,8,8,2,4,8,8,8,8,8,8,2,8,8,4,4,4,8,8,2,4,4,2,4,2,2,4,8,8,8,2,2,8,4,8,4,4,4,4,8,8,8,8,2,8,8,4,8,8,4,2,8,4,8,4,4,4,4,2,2,2,2,4,8,8,8,2,2,2,4,8,4,4,4,4,8,8,8,8,2,8,8,4,8,8,4,2,8,8,4,8,8,4,2,2,4,2,8,8,4,8,8,4,8,8,2,8,8,4,8,8,4,8,8,2,8,8,4,4,4,8,8,2,8,8,4,8,8,8,4,8,2,4,4,8,8,4,4,8,2,8,8,4,4,4,8,8,4,8,8,8,8,8,8,4,4,4,4,8,2,8,8,4,8,8,8,4,8,4,4,4,4,4,4,4,2,8,8,4,8,8,8,4,8,4,4,4,4,4,4,4,2,8,8,4,8,8,8,4,8,4,4,4,4,4,4,4,2,8,8,4,8,8,8,4,8,4,8,8,8,8,8,8,4,4,4,4,2
+};
+
+uint16_t Es_length = sizeof(Es_melody) / sizeof(int);

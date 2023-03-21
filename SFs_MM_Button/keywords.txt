@@ -1,0 +1,30 @@
+######################################################################
+# Syntax Coloring Map for SFs_MM_Button                              #
+######################################################################
+# Class
+######################################################################
+
+MM_QwiicButton	KEYWORD1
+button	KEYWORD1
+
+######################################################################
+# Methods and Functions
+######################################################################
+
+begin	KEYWORD2
+getDeviceType	KEYWORD2
+getFirmwareVersion	KEYWORD2
+setI2Caddress	KEYWORD2
+getI2Caddress	KEYWORD2
+isPressed   KEYWORD2
+isConnected   KEYWORD2
+getDebounceTime	KEYWORD2
+setDebounceTime	KEYWORD2
+getStatusRegister	KEYWORD2
+enablePressedInterrupt  	KEYWORD2
+disablePressedInterrupt 	KEYWORD2
+enableClickedInterrupt  	KEYWORD2
+disableClickedInterrupt 	KEYWORD2
+resetInterruptConfig    	KEYWORD2
+buzzerBegin	KEYWORD2
+buzzer	KEYWORD2
