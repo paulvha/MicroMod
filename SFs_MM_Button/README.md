@@ -1,9 +1,9 @@
-# Micromod Input and output carrier board Buttons & Buzzer
+# Micromod Input and display carrier board Buttons & Buzzer
 
 ## ===========================================================
 
 ## Background
-Having a large number of SparkFun products, I bought a [Micromod Input and output carrier board](https://www.sparkfun.com/products/16985). This one looked interesting with a Hyperdisplay, AP102 leds, buzzer and onboard buttons.
+Having a large number of SparkFun products, I bought a [Micromod Input and display carrier board](https://www.sparkfun.com/products/16985). This one looked interesting with a Hyperdisplay, AP102 leds, buzzer and onboard buttons.
 
 <br>To make the point from beginning: It is a disappointment !!
 

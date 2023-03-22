@@ -7,8 +7,8 @@
     With 'A' next color loop through different colors
     With 'B' increase intensity is steps of 10 to 100 and then start from 10 again
     With 'CENTER' button increase brightness to 31 and the start from 5 again.
-  
-  Created a SparkFun Special function to handle the button on the Micromod Input and output carrier board.
+
+  Created a SparkFun Special function to handle the button on the Micromod Input and Display carrier board.
   https://www.sparkfun.com/products/16985
 
   Version 1.0 / march 2023 / Paulvha
@@ -21,15 +21,15 @@
   at the same time on a critical moment. This is especially tricky with the on-board 5 way switch.
 
   see topic https://github.com/sparkfun/MicroMod_Input_and_Display_Carrier/issues/1
-   
-  The library and sketch code tries to mitigate as much as possible, but not a 100%.  Be gentle on the buttons, 
+
+  The library and sketch code tries to mitigate as much as possible, but not a 100%.  Be gentle on the buttons,
   if you push 2 at the same time the on-board Attiny84 button handler can still get out of shape
-  and only returns 0, no detection of any button. 
-  
+  and only returns 0, no detection of any button.
+
   A power off/on will be needed in that case to reset the Attiny84, as it does not use the reset-button
 
   This combined with an Attiny84 which does a cycle-stretching makes it a weak part of the board.
-  
+
   Tested with MM Artemis, Teensy, nRF52840, ESP32, SAMD51
 
 ******************************************************************************/
@@ -69,12 +69,12 @@ bool HandleButtonInterrupt = false;// set when interrupt is detected
 bool InHandleButton = false;       // to prevent double trigger of handling buttons
 
 // >>>>>>>>>>>>>>>>>>>>>> leds variables <<<<<<<<<<<<<<<<<<<<<<<<<<<
-#define DEFAULT_BRIGHT 9           // max 31 
+#define DEFAULT_BRIGHT 9           // max 31
 #define DEFAULT_INTENSITY  50      // max 100
 
 struct LedStatus{
   uint8_t ColorStatus;            // color on led
-  uint8_t  BlinkDelay;            // how blink seconds 
+  uint8_t  BlinkDelay;            // how blink seconds
   unsigned long BlinkStart;       // When last switch happened
   bool    LedIsOn;                // Status of led
   uint8_t Brightness;             // brightness between 0 -31
@@ -137,7 +137,7 @@ void setup() {
     StatusLeds[i].Intensity = DEFAULT_INTENSITY;  // default
     StatusLeds[i].LedIsOn = true;                // Led is On
   }
-    
+
   // initialize all the leds with the color
   UpdateLedColor();
 
@@ -176,24 +176,24 @@ void Serialflush()
   }
 }
 
-/** 
+/**
  *  display current settings
  */
 void DisplayCurrentSetting()
 {
   Serialflush();
-  
+
   for (uint8_t i = 0; i < totalLEDs; i++) {
     Serial.print("led: ");
     Serial.print(i);
     Serial.print("\tColor: ");
-    Serial.print(StatusLeds[i].ColorStatus);    
+    Serial.print(StatusLeds[i].ColorStatus);
     Serial.print("  Bright: ");
     Serial.print(StatusLeds[i].Brightness);
     Serial.print("\tIntensity: ");
     Serial.print(StatusLeds[i].Intensity);
     Serial.print("\tBlink delay: ");
-    Serial.print(StatusLeds[i].BlinkDelay);    
+    Serial.print(StatusLeds[i].BlinkDelay);
     if (StatusLeds[i].LedIsOn) Serial.print("\tON");
     else Serial.print("\tOFF");
 
@@ -227,13 +227,13 @@ void HandleButton()
 {
   InHandleButton = true;
   HandleButtonInterrupt = false;
-  
+
   MM_statusRegisterBitField statusRegister, previous;
   // Initialize
   statusRegister.byteWrapped = 1;
   previous.byteWrapped = 0;
   unsigned long st_repeat = 0;
-  
+
   while (statusRegister.byteWrapped > 0) {
 
     // read current state of button(s) pressed
@@ -303,7 +303,7 @@ void HandleButton()
       debounce[6] = millis();
       SetNextBrightness(LedSelected);
     }
-    
+
     UpdateLedColor();
   }
 
@@ -316,25 +316,25 @@ void HandleButton()
  */
 void HandleBlink()
 {
-  
+
   // for each led
   for (uint8_t i = 0; i < totalLEDs; i++) {
-    
+
     // if No blink requested on this led (anymore)
     if (StatusLeds[i].BlinkDelay == 0) {
       StatusLeds[i].BlinkStart = 0;              // reset any pending
-      StatusLeds[i].LedIsOn = true; 
-      
+      StatusLeds[i].LedIsOn = true;
+
     }
     else if (StatusLeds[i].BlinkStart > 0) {     // if started
-      
+
       if (millis() - StatusLeds[i].BlinkStart > (StatusLeds[i].BlinkDelay * 1000)) {
-        
+
         if (StatusLeds[i].LedIsOn) StatusLeds[i].LedIsOn = false ;  // if ON turn off
         else StatusLeds[i].LedIsOn = true;
-        
+
         StatusLeds[i].BlinkStart = millis();
-#if SHOWDEBUG  
+#if SHOWDEBUG
         Serial.print("Blink led : ");
         Serial.print(i);
         Serial.print(" to: ");
@@ -342,12 +342,12 @@ void HandleBlink()
 #endif
       }
     }
-    else {                                       // start now      
+    else {                                       // start now
       StatusLeds[i].BlinkStart = millis();
-#if SHOWDEBUG  
+#if SHOWDEBUG
       Serial.print("start blink led: ");
       Serial.println(i);
-#endif    
+#endif
     }
 
     if (StatusLeds[i].LedIsOn)   { // set led on
@@ -359,7 +359,7 @@ void HandleBlink()
       leds.setIntensity(i, 0);
     }
   } // each led
-  
+
   leds.show();
 }
 
@@ -371,7 +371,7 @@ void SetNextBrightness(uint8_t led)
   StatusLeds[led].Brightness += 5;
   if (StatusLeds[led].Brightness > 31) StatusLeds[led].Brightness = 5;
   leds.setBrightness(led, StatusLeds[led].Brightness);
-#if SHOWDEBUG  
+#if SHOWDEBUG
   Serial.print("Selected Brightness: ");
   Serial.println(StatusLeds[led].Brightness);
 #endif
@@ -439,9 +439,9 @@ void SetNextIntensity(uint8_t i)
  */
 void UpdateLedColor(){
   uint32_t col;
-  
+
   for (uint8_t i = 0; i < totalLEDs; i++) {
-    
+
     switch(StatusLeds[i].ColorStatus) {
       case 1:
         col = color_white;
@@ -469,13 +469,13 @@ void UpdateLedColor(){
         break;
       default:
         col = color_black;
-        break;      
+        break;
     }
-    
-    // fill the color for led 
+
+    // fill the color for led
     leds.setPixelColor(i,col);
   }
-  
-  // show 
+
+  // show
   leds.show();
 }

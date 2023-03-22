@@ -1,6 +1,6 @@
 /******************************************************************************
 Based on the original library mentioned below, created a SparkFun Special function
-to handle the button on the Micromod Input and output carrier board.
+to handle the button on the Micromod Input and Display carrier board.
 https://www.sparkfun.com/products/16985
 
 version 1.0 / March 2023 / Paulvha

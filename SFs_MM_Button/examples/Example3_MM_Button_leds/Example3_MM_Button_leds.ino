@@ -1,10 +1,10 @@
 /******************************************************************************
   Checks whether the button is pressed, and then prints its status over serial!
-  
+
   Also with the A, B, UP, DOWN, LEFT and RIGHT it will loop through different colors on different leds
   The CENTER button will increase brightness to 31 and the start from 5 again.
-  
-  Created a SparkFun Special function to handle the button on the Micromod Input and output carrier board.
+
+  Created a SparkFun Special function to handle the button on the Micromod Input and Display carrier board.
   https://www.sparkfun.com/products/16985
 
   Version 1.0 / march 2023 / Paulvha
@@ -17,15 +17,15 @@
   at the same time on a critical moment. This is especially tricky with the on-board 5 way switch.
 
   see topic https://github.com/sparkfun/MicroMod_Input_and_Display_Carrier/issues/1
-   
-  The library and sketch code tries to mitigate as much as possible, but not a 100%.  Be gentle on the buttons, 
+
+  The library and sketch code tries to mitigate as much as possible, but not a 100%.  Be gentle on the buttons,
   if you push 2 at the same time the on-board Attiny84 button handler can still get out of shape
-  and only returns 0, no detection of any button. 
-  
+  and only returns 0, no detection of any button.
+
   A power off/on will be needed in that case to reset the Attiny84, as it does not use the reset-button
 
   This combined with an Attiny84 which does a cycle-stretching makes it a weak part of the board.
-  
+
   Tested with MM Artemis, Teensy, nRF52840, ESP32, SAMD51
 ******************************************************************************/
 #include "SFs_MM_Button.h"
@@ -63,7 +63,7 @@ bool HandleButtonInterrupt = false;// set when interrupt is detected
 bool InHandleButton = false;       // to prevent double trigger of handling buttons
 
 // leds variables
-uint8_t bright = 9;      // max 31 
+uint8_t bright = 9;      // max 31
 uint8_t intensity = 50;  // max 100
 uint8_t LedStatus[totalLEDs];
 
@@ -112,7 +112,7 @@ void setup() {
   leds.setIntensity(intensity);
 
   for (uint8_t i = 0; i < totalLEDs; i++) LedStatus[i] = 10;    // will set for black.
-    
+
   // initalize all the leds with the same color
   UpdateLedColor();
 }
@@ -151,13 +151,13 @@ void HandleButton()
 {
   InHandleButton = true;
   HandleButtonInterrupt = false;
-  
+
   MM_statusRegisterBitField statusRegister, previous;
   // Initialize
   statusRegister.byteWrapped = 1;
   previous.byteWrapped = 0;
   unsigned long st_repeat = 0;
-  
+
   while (statusRegister.byteWrapped > 0) {
 
     // read current state of button(s) pressed
@@ -229,7 +229,7 @@ void HandleButton()
       if (bright > 31) bright = 5;
       leds.setBrightness(bright);
     }
-    
+
     UpdateLedColor();
   }
 
@@ -252,9 +252,9 @@ void SetNextColor(uint8_t i)
  */
 void UpdateLedColor(){
   uint32_t col;
-  
+
   for (uint8_t i = 0; i < totalLEDs; i++) {
-    
+
     switch(LedStatus[i]) {
       case 1:
         col = color_white;
@@ -282,13 +282,13 @@ void UpdateLedColor(){
         break;
       default:
         col = color_black;
-        break;      
+        break;
     }
-    
-    // fill the color for led 
+
+    // fill the color for led
     leds.setPixelColor(i,col);
   }
-  
-  // show 
+
+  // show
   leds.show();
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
   Checks whether the button is pressed, and then prints its status over serial!
-  created a SparkFun Special function to handle the button on the Micromod Input and output carrier board.
+  created a SparkFun Special function to handle the button on the Micromod Input and Display carrier board.
   https://www.sparkfun.com/products/16985
 
   Version 1.0 / march 2023 / Paulvha
@@ -13,15 +13,15 @@
   at the same time on a critical moment. This is especially tricky with the on-board 5 way switch.
 
   see topic https://github.com/sparkfun/MicroMod_Input_and_Display_Carrier/issues/1
-   
-  The library and sketch code tries to mitigate as much as possible, but not a 100%.  Be gentle on the buttons, 
+
+  The library and sketch code tries to mitigate as much as possible, but not a 100%.  Be gentle on the buttons,
   if you push 2 at the same time the on-board Attiny84 button handler can still get out of shape
-  and only returns 0, no detection of any button. 
-  
+  and only returns 0, no detection of any button.
+
   A power off/on will be needed in that case to reset the Attiney84, as it does not use the reset-button
 
   This combined with an Attiny84 which does a cycle-stretching makes it a weak part of the board.
-  
+
   Tested with MM Artemis, Teensy, nRF52840, ESP32, SAMD51
 ******************************************************************************/
 #include <SFs_MM_Button.h>
@@ -57,13 +57,13 @@ bool InHandleButton = false;       // to prevent double trigger of handling butt
 void setup() {
 
   Serial.begin(115200);
-  
+
 #if (defined ARDUINO_TEENSY_MICROMOD)
   delay(500);
 #else
   while (!Serial) {delay(10);}
 #endif
-  
+
   Serial.println("Example1 MicroMod print Buttons");
   Wire.begin(); //Join I2C bus
 
@@ -120,13 +120,13 @@ void HandleButton()
 {
   InHandleButton = true;
   HandleButtonInterrupt = false;
-  
+
   MM_statusRegisterBitField statusRegister, previous;
   // Initialize
   statusRegister.byteWrapped = 1;
   previous.byteWrapped = 0;
   unsigned long st_repeat = 0;
-  
+
   while (statusRegister.byteWrapped > 0) {
 
     // read current state of button(s) pressed
