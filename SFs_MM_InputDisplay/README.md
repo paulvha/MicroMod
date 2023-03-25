@@ -9,9 +9,9 @@ You can start with the Sparkfun libraries:
 [HyperDisplay_ILI9341_ArduinoLibrary](https://github.com/sparkfun/HyperDisplay_ILI9341_ArduinoLibrary/archive/master.zip)
 [HyperDisplay_4DLCD-320240_ArduinoLibrary](https://github.com/sparkfun/HyperDisplay_4DLCD-320240_ArduinoLibrary/archive/master.zip)
 
-The SparkFun_HyperDisplay has 3 examples, which do nothing and are actually templates to create your own screens.
-The HyperDisplay_ILI9341_ArduinoLibrary has 1 example that does not work (crashes constant).
-The HyperDisplay_4DLCD-320240_ArduinoLibrary:
+<br>The SparkFun_HyperDisplay has 3 examples, which do nothing and are actually templates to create your own screens.
+<br>The HyperDisplay_ILI9341_ArduinoLibrary has 1 example that does not work (crashes constant).
+<br>The HyperDisplay_4DLCD-320240_ArduinoLibrary:
 * Example1: Only showing some squares, triangels and circles on the display.
 * Example2: Demonstrates how some functions can be used and VERY small text.
 * Example3: More functions and the demo for splitscreens
@@ -26,21 +26,20 @@ This library handles the Hyperdisplay. For the APA102 leds and button & buzzer I
 
 ## Getting Started
 
-Example1: From Adafruit, which is doing same as Example1 from SparkFun HyperDisplay_4DLCD. Took 5 minutes...
-Example2: is also from Adafruit. You can take an existing picture and show that on the HyperDisplay. Instruction on how to do that are in the sketch.
-Example3: includes working with the APA102 leds.
-Example4: Shows fading of the APA102 LEDS
-Example5: If you connect a BME280 it will show on splitscreens(*1) and the leds the status of pressure, temperature, humdity
-Example6: same as Example5, but now also show on Splitscreens(*1) the status of BLE (*2) and BME280 as well on the leds.
-Example7: show the usage of different standard fonts from Adafruit.
+<br>Example1: From Adafruit, which is doing same as Example1 from SparkFun HyperDisplay_4DLCD. Took 5 minutes...
+<br>Example2: is also from Adafruit. You can take an existing picture and show that on the HyperDisplay. Instruction on how to do that are in the sketch.
+<br>Example3: includes working with the APA102 leds.
+<br>Example4: Shows fading of the APA102 LEDS
+<br>Example5: If you connect a BME280 it will show on splitscreens(*1) and the leds the status of pressure, temperature, humdity
+<br>Example6: same as Example5, but now also show on Splitscreens(*1) the status of BLE (*2) and BME280 as well on the leds.
+<br>Example7: show the usage of different standard fonts from Adafruit.
 
-* 1) I have created an overlay library layer on-top-off the Adafruit libraries to keep it simple for the user. You now have splitscreens to show real information from a sketch or sensor with real working examples !! How to use them in real working examples is shown in the Example3 - Example7.
+<br>--1) I have created an overlay library layer on-top-off the Adafruit libraries to keep it simple for the user. You now have splitscreens to show real information from a sketch or sensor with real working examples !! How to use them in real working examples is shown in the Example3 - Example7.
 
-* 2) depends on ArduinoBLE support of the processor board.
+<br>--2) depends on ArduinoBLE support of the processor board.
 
-<b>Word of warning<\b>
+**Word of warning**
 The display with an Artemis processor is very slow as each pixel is addressed with a seperate SPI call (either SparkFun or AdaFruit) and thus the overhead is high. I would only advice this carrier board with another processor like and ESP32, Teensy or Nrf52480 for the display.
-
 
 ## Repository Contents
 
