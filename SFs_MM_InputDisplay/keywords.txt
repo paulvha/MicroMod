@@ -1,0 +1,62 @@
+#######################################
+# Syntax Coloring Map For Micromod
+# input output display
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SFs_APA102	KEYWORD1
+SFs_MM	KEYWORD1
+leds	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+end	KEYWORD2
+show	KEYWORD2
+clear	KEYWORD2
+setPixelColor	KEYWORD2
+fill	KEYWORD2
+setBrightness	KEYWORD2
+setIntensity	KEYWORD2
+getLeds	KEYWORD2
+writeBuffer KEYWORD2
+ClrDisplay	KEYWORD2
+StoreCursor	KEYWORD2
+GetCurrentx	KEYWORD2
+GetCurrenty	KEYWORD2
+InitSplScreen	KEYWORD2
+ClsSplitScreen	KEYWORD2
+clrSetPos	KEYWORD2
+setBacklight	KEYWORD2
+SetText	KEYWORD2
+AddText	KEYWORD2
+SetTextMiddle	KEYWORD2
+AddTextMiddle	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+Color	LITERAL1
+ROTATION_PORTRAIT	LITERAL1
+ROTATION_LANDSCAPE	LITERAL1
+ROTATION_REV_PORTRAIT	LITERAL1
+ROTATION_REV_LANDSCAPE	LITERAL1
+SPLIT_HORIZONTAL	LITERAL1
+SPLIT_VERTICAL	LITERAL1
+SPLIT_BOTH_BELOW	LITERAL1
+SPLIT_BOTH_ABOVE	LITERAL1
+color_white	LITERAL1
+color_red	LITERAL1
+color_green	LITERAL1
+color_blue	LITERAL1
+color_orange	LITERAL1
+color_gold	LITERAL1
+color_purple	LITERAL1
+color_black	LITERAL1
+color_violet	LITERAL1

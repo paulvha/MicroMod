@@ -37,7 +37,7 @@ This library is based on the original SparkFun [SparkFun_Qwiic_Button_Arduino_Li
 
 ## Prerequisites
 
-### Leds: https://github.com/paulvha/SF_APA102
+### Leds: https://github.com/paulvha/SF_MM_APA102
  * needed for some examples
 
 ## Software installation
