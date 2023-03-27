@@ -32,7 +32,7 @@ The on-board MicroSD can be used as well with a standard [MicroSD filemanager](h
 ## dependencies
 * LEDS : https://github.com/paulvha/MicroMod/SFs_MM_APA102
 * Button & buzzer : https://github.com/paulvha/MicroMod/SFs_MM_Button
-* MicroSD https://github.com/paulvha/apollo3/tree/master/MicroSD_filemanager
+* MicroSD : https://github.com/paulvha/apollo3/tree/master/MicroSD_filemanager
 *  depends on https://github.com/greiman/SdFat.git
 * Hyperdisplay: https://github.com/paulvha/MicroMod/SFs_MM_InputDisplay
 *  depends on https://github.com/adafruit/Adafruit-GFX-Library
@@ -40,15 +40,16 @@ The on-board MicroSD can be used as well with a standard [MicroSD filemanager](h
 *  depends on https://github.com/adafruit/Adafruit_BusIO
 * BLE : https://github.com/arduino-libraries/ArduinoBLE (for example6)
 
-
 ## Author
  * Paul van Haastrecht (paulvha@hotmail.com)
 
 ## Version History
 
+### version 1.0.1 / march 2023 / paulvha
+ * added Example8 to HyperDisplay
 
 ### version 1.0.0 / march 2023 / Paulvha
-* initial version
+ * initial version
 
 ### License Information
 

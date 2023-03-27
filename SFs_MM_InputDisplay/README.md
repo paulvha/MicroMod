@@ -2,12 +2,12 @@
 
 ## ===========================================================
 
-## About THE SparkFun libraries
+## About the SparkFun libraries
 
 You can start with the Sparkfun libraries:
-[SparkFun_HyperDisplay](https://github.com/sparkfun/SparkFun_HyperDisplay/archive/master.zip)
-[HyperDisplay_ILI9341_ArduinoLibrary](https://github.com/sparkfun/HyperDisplay_ILI9341_ArduinoLibrary/archive/master.zip)
-[HyperDisplay_4DLCD-320240_ArduinoLibrary](https://github.com/sparkfun/HyperDisplay_4DLCD-320240_ArduinoLibrary/archive/master.zip)
+<br>[SparkFun_HyperDisplay](https://github.com/sparkfun/SparkFun_HyperDisplay/archive/master.zip)
+<br>[HyperDisplay_ILI9341_ArduinoLibrary](https://github.com/sparkfun/HyperDisplay_ILI9341_ArduinoLibrary/archive/master.zip)
+<br>[HyperDisplay_4DLCD-320240_ArduinoLibrary](https://github.com/sparkfun/HyperDisplay_4DLCD-320240_ArduinoLibrary/archive/master.zip)
 
 <br>The SparkFun_HyperDisplay has 3 examples, which do nothing and are actually templates to create your own screens.
 <br>The HyperDisplay_ILI9341_ArduinoLibrary has 1 example that does not work (crashes constant).
@@ -17,7 +17,7 @@ You can start with the Sparkfun libraries:
 * Example3: More functions and the demo for splitscreens
 * Example4: Screen in screen demo
 
-Given that only Hyperdisplay documentation examples that are provided, I expect it was somehow the core reason for this carrier board. So sad to see the low outcome. All this means you have to do a lot of work yourself to make something usefull. IF you want to use different fonts.. find it out yourself !
+Given that only Hyperdisplay documentation examples that are provided, I expect it was somehow the core reason for this carrier board. Disappointed with the libraries. All this means you have to do a lot of work yourself to make something usefull. If you want to use different fonts.. find it out yourself !
 
 ## About THIS library
 This library handles the Hyperdisplay. For the APA102 leds and button & buzzer I have adjusted / created other libraries.
@@ -33,13 +33,13 @@ This library handles the Hyperdisplay. For the APA102 leds and button & buzzer I
 <br>Example5: If you connect a BME280 it will show on splitscreens(*1) and the leds the status of pressure, temperature, humdity
 <br>Example6: same as Example5, but now also show on Splitscreens(*1) the status of BLE (*2) and BME280 as well on the leds.
 <br>Example7: show the usage of different standard fonts from Adafruit.
+<br>Example8: From Adafruit, read bmp-files from MicroSD and displays on HyperDisplay. Instruction on how to do that are in the sketch.
 
 <br>--1) I have created an overlay library layer on-top-off the Adafruit libraries to keep it simple for the user. You now have splitscreens to show real information from a sketch or sensor with real working examples !! How to use them in real working examples is shown in the Example3 - Example7.
-
-<br>--2) depends on ArduinoBLE support of the processor board.
+<br>--2) Depends on ArduinoBLE support of the processor board.
 
 **Word of warning**
-The display with an Artemis processor is very slow as each pixel is addressed with a seperate SPI call (either SparkFun or AdaFruit) and thus the overhead is high. I would only advice this carrier board with another processor like and ESP32, Teensy or Nrf52480 for the display.
+The display with an Artemis processor is very slow as each pixel is addressed with a seperate SPI call (either SparkFun or AdaFruit) and thus the overhead is high. I would only advice this carrier board with another processor like and ESP32, Teensy or nRF52480 for the display.
 
 ## Repository Contents
 
@@ -65,6 +65,9 @@ Obtain the zip and install like any other
 See top of sketches
 
 ## Versioning
+
+### Version 1.0.1 / March 2023
+ * added Example8
 
 ### Version 1.0.0 / March 2023
  * Initial release with Example 1 to 7
