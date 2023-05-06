@@ -1,13 +1,13 @@
 /***************************************************
   This is our Bitmap drawing example for the Adafruit ILI9341 Breakout and Shield
   ----> http://www.adafruit.com/products/1651
-  
+
   With this sketch you read bmp-files from the MicroSD and display on the HyperDisplay
 
   Check out the links above for our tutorials and wiring diagrams
   These displays use SPI to communicate, 4 or 5 pins are required to
   interface (RST is optional)
-  
+
   Adafruit invests time and resources providing this open source code,
   please support Adafruit and open-source hardware by purchasing
   products from Adafruit!
@@ -18,17 +18,17 @@
   ===================================================================
 
   !!!!!! Make sure to select the right MM processor below. !!!!
-  
+
   This does not work on a Teensy, but that has it's own spitftbitmap library.
-  
-  Adjusted  for MicroMod Input and Display (DEV-16985) 
+
+  Adjusted  for MicroMod Input and Display (DEV-16985)
   version 1.0 / March 2023 / paulvha
 
   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+
   In the Example8_MM_Input_Disp_sptftbitmap folder there are 4 example
   bmp-files you can use to upload (see step 3 below)
-  
+
   >>>>>>>>>>>>>>>>>>>>> convert /add a picture <<<<<<<<<<<<<<<<<<<<<
 
   This is a 4 step procedure I used on Ubuntu.
@@ -57,7 +57,7 @@
 #include <SPI.h>
 #include <SdFat.h> //SdFat v2.2.0 by Bill Greiman: http://librarymanager/All#SdFat_exFAT
 
-////////////////////// Define your processor ///////////////////// 
+////////////////////// Define your processor /////////////////////
 #define  MICROMOD_INPUT_DISP_APOLLO3     // MicroMod Input Display carrier board MM Artemis
 //#define  MICROMOD_INPUT_DISP_ESP32       // MicroMod Input Display carrier board MM ESP32 (WRL-16781)
 //#define  MICROMOD_INPUT_DISP_NRF52840    // MicroMod Input Display carrier board MM nRF52840 (WRL-16984)
@@ -68,12 +68,26 @@
 // Hardware SPI pins are specific to the Arduino board type and
 // cannot be remapped to alternate pins.
 
-// MicroMod Input and Display (DEV-16985) 
+#if defined(ARDUINO_TEENSY_MICROMOD)
+
+#undef PWM0
+#define PWM0 CORE_PIN0_BIT //3
+
+#undef D0
+#define D0 CORE_PIN2_BIT  //4
+
+#undef D1
+#define D1 CORE_PIN3_BIT  //5
+
+#define SD_CS     CORE_PIN6_BIT   //10
+#endif //ARDUINO_TEENSY_MICROMOD
+
+// MicroMod Input and Display (DEV-16985)
 #define TFT_CS    D0           // TFT CS  Chipselect
 #define TFT_RST   -1           // TFT RST No reset used
 #define TFT_DC    D1           // TFT DC  Data command
 
-#ifdef MICROMOD_INPUT_DISP_APOLLO3 
+#if defined(ARDUINO_ARCH_MBED)
 #define SD_CS     SPI_CS      // CS (chip select IOM)
 #endif
 
@@ -84,7 +98,7 @@
 /////////////////////////  MicroSD card ///////////////////////////////////
 
 // SD_FAT_TYPE = 0 for SdFat/File, 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
-#define SD_FAT_TYPE 3 
+#define SD_FAT_TYPE 3
 
 #if SD_FAT_TYPE == 1
 SdFat32 sd;
@@ -113,27 +127,27 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 void setup(void) {
 
   Serial.begin(115200);
-   
+
   while (!Serial) {
     if (millis() > 8000) break;
   }
-  
+
   // Keep the SD card inactive while working the display.
   pinMode(SD_CS, INPUT_PULLUP);
   delay(200);
 
   tft.begin();
   tft.invertDisplay(true);  // needed for Micromod
-  
+
   tft.fillScreen(ILI9341_BLUE);
- 
+
   tft.setTextColor(ILI9341_WHITE);
   tft.setTextSize(2);
   tft.println(F("Welcome on tft Monitor..."));
 
   Serial.print(F("Initializing SD card..."));
   tft.println(F("Init MicroSD..."));
-  
+
   // setup MicroSD
   BeginSD();
 
@@ -147,7 +161,7 @@ void BeginSD()
 {
   pinMode(SD_CS, OUTPUT);
   digitalWrite(SD_CS, HIGH); //Be sure SD is deselected
-  
+
   if (sd.begin(SD_CONFIG) == false) // Try to begin the SD card using the correct chip select
   {
     Serial.println(F("SD init failed (first attempt). Trying again...\r\n"));
@@ -156,7 +170,7 @@ void BeginSD()
     {
       delay(1);
     }
-    
+
     if (sd.begin(SD_CONFIG) == false) // Try to begin the SD card using the correct chip select
     {
       Serial.println(F("SD init failed (second attempt).\n\tIs card present?\n\tFormatted ?\n\tRight board (both in sketch and IDE) selected during compile ?"));
@@ -214,7 +228,7 @@ void bmpDraw(const char *filename, uint8_t x, uint16_t y) {
   int16_t  Wi, He;
 
   uint16_t awColors[320];          // hold colors for one row at a time...
-  
+
   if((x >= tft.width()) || (y >= tft.height())) return;
 
   Serial.println();
@@ -224,7 +238,7 @@ void bmpDraw(const char *filename, uint8_t x, uint16_t y) {
 
   if (! sd_file.open(filename, O_READ))
   {
-    Serial.print("Error: could not open : "); 
+    Serial.print("Error: could not open : ");
     Serial.println(filename);
     return;
   }
@@ -239,7 +253,7 @@ void bmpDraw(const char *filename, uint8_t x, uint16_t y) {
     Serial.print(F("Header size: ")); Serial.println(read32());
     bmpWidth  = read32();
     bmpHeight = read32();
-    
+
     if(read16() == 1) { // # planes -- must be '1'
       bmpDepth = read16(); // bits per pixel
       Serial.print(F("Bit Depth: ")); Serial.println(bmpDepth);
@@ -266,15 +280,15 @@ void bmpDraw(const char *filename, uint8_t x, uint16_t y) {
         h = bmpHeight;
         if((x+w-1) >= tft.width())  w = tft.width()  - x;
         if((y+h-1) >= tft.height()) h = tft.height() - y;
-    
+
         // try to center picture
         if (tft.width() > w) Wi = (tft.width() - w) / 2;
         else Wi = 0;
-    
+
         if (tft.height() > h) He = (tft.height() - h) / 2;
         else He = 0;
 
-     
+
         for (row=0; row<h; row++) { // For each scanline...
 
           // Seek to start of scan line.  It might seem labor-
@@ -293,7 +307,7 @@ void bmpDraw(const char *filename, uint8_t x, uint16_t y) {
           }
 
           for (col=0; col<w; col++) { // For each pixel...
-            
+
             // Time to read more pixel data?
             if (buffidx >= sizeof(sdbuffer)) { // Indeed
               sd_file.read(sdbuffer, sizeof(sdbuffer));
@@ -306,17 +320,17 @@ void bmpDraw(const char *filename, uint8_t x, uint16_t y) {
             r = sdbuffer[buffidx++];
             awColors[col] = tft.color565(r,g,b);
           } // end pixel
-          
+
           tft.drawRGBBitmap(Wi+0, He+row, awColors , w, 1);
-        } // end scanline        
-                
+        } // end scanline
+
         Serial.print(F("Loaded in "));
         Serial.print(millis() - startTime);
         Serial.println(" ms");
       } // end goodBmp
     }
   }
-  
+
   sd_file.close();
   if(!goodBmp) Serial.println(F("BMP format not recognized."));
 }

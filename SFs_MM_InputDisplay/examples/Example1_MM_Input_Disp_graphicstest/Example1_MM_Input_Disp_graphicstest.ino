@@ -22,6 +22,18 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_ILI9341.h"
 
+#if defined(ARDUINO_TEENSY_MICROMOD)
+
+#undef PWM0
+#define PWM0 CORE_PIN0_BIT
+
+#undef D0
+#define D0 CORE_PIN2_BIT
+
+#undef D1
+#define D1 CORE_PIN3_BIT
+
+#endif //ARDUINO_TEENSY_MICROMOD
 
 // MicroMod Input and Display carrier board
 #define bl_pin    PWM0         // background light pin
@@ -58,8 +70,8 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("ILI9341 Test on MicroMod Input and Display carrier board!"); 
- 
+  Serial.println("ILI9341 Test on MicroMod Input and Display carrier board!");
+
   tft.begin();
 
   setBacklight(255);  // MicroMod addtion
@@ -74,8 +86,8 @@ void setup() {
   x = tft.readcommand8(ILI9341_RDIMGFMT);
   Serial.print("Image Format: 0x"); Serial.println(x, HEX);
   x = tft.readcommand8(ILI9341_RDSELFDIAG);
-  Serial.print("Self Diagnostic: 0x"); Serial.println(x, HEX); 
-  
+  Serial.print("Self Diagnostic: 0x"); Serial.println(x, HEX);
+
   Serial.println(F("Benchmark                Time (microseconds)"));
   delay(10);
   Serial.print(F("Screen fill              "));
@@ -188,7 +200,7 @@ unsigned long testLines(uint16_t color) {
 
   tft.fillScreen(ILI9341_BLACK);
   yield();
-  
+
   x1 = y1 = 0;
   y2    = h - 1;
   start = micros();

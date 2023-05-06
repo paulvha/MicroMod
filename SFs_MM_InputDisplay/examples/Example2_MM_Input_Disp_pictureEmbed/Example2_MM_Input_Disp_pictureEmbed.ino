@@ -1,16 +1,16 @@
 /***********************************************************************
-  Special port from the original pictureEmbed in the Adafruit ILI9341 library 
+  Special port from the original pictureEmbed in the Adafruit ILI9341 library
   for the Sparkfun MicroMod Input and Display (DEV-16985)
-  
-  Convert an existing picture by scaling and converting colors to RGB565 code so it 
+
+  Convert an existing picture by scaling and converting colors to RGB565 code so it
   can be shown on the Hyperdisplay.
-  
+
   Version 1.0 / March 2023 / paulvha
 
   >>>>>>>>>>>>>>>>>>>>>>>>>>>> convert a picture <<<<<<<<<<<<<<<<<<<<<<<<<
 
   This is a 10 step procedure that I am SURE it should be able to be done easier.
-  But for now it works and it takes about 10 minutes for a picture. 
+  But for now it works and it takes about 10 minutes for a picture.
   Below is what I used on Ubuntu.
 
   >>>>>>>>>>>>>>>>>>>>>>>>>>> CREATE IMAGE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -46,9 +46,9 @@
   >>>>> step 6
   Open the downloaded file. In the top find something like
   //Image Size     : 202x320 pixels
-  
+
   >>>>> step 7
-  Open this sketch in the Arduino IDE. 
+  Open this sketch in the Arduino IDE.
   Go to tab dragon.h
   in top find 2 lines:
   #define DRAGON_WIDTH  218
@@ -58,16 +58,16 @@
   based on this example change those to :
   #define DRAGON_WIDTH  202
   #define DRAGON_HEIGHT 320
-  
+
   >>>>> step 9
   Copy content of the array with 'PROGMEM =' in the downloaded file
   TO
   replace the content of dragonBitmap-array in dragon.h
-  
+
   >>>>> step 10
   Compile and upload
-  
-  
+
+
   !!!!!!! The original picture (MMID.JPG and MMID.c) in this example
   is stored in the MMID.zip file with this sketch. !!!!!!!!!!
 
@@ -77,6 +77,19 @@
 #include "SPI.h"
 #include <Adafruit_ILI9341.h>
 #include "dragon.h"
+
+#if defined(ARDUINO_TEENSY_MICROMOD)
+
+#undef PWM0
+#define PWM0 CORE_PIN0_BIT
+
+#undef D0
+#define D0 CORE_PIN2_BIT
+
+#undef D1
+#define D1 CORE_PIN3_BIT
+
+#endif //ARDUINO_TEENSY_MICROMOD
 
 // MicroMod Input and Display (DEV-16985)
 #define TFT_CS    D0           // TFT CS  Chipselect
@@ -92,9 +105,9 @@ void setup() {
 
 void loop(void) {
   int16_t Wi, He;
-  
+
   for(uint8_t r=0; r<4; r++) {
-    
+
     tft.setRotation(r);
     tft.fillScreen(ILI9341_BLACK);
 

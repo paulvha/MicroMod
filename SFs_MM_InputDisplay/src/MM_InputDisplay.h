@@ -17,6 +17,19 @@
  *  //#include <Adafruit_SPIDevice.h>
  */
 
+#if defined(ARDUINO_TEENSY_MICROMOD)
+
+#undef PWM0
+#define PWM0 CORE_PIN0_BIT
+
+#undef D0
+#define D0 CORE_PIN2_BIT
+
+#undef D1
+#define D1 CORE_PIN3_BIT
+
+#endif //ARDUINO_TEENSY_MICROMOD
+
 ////////////////  Display connections ////////////////////////////////
 #define bl_pin    PWM0         // background light pin
 #define SPI_SPEED 48000000     // Requests host uC to use the fastest possible SPI speed up to 48MHz

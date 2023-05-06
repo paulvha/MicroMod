@@ -66,6 +66,9 @@ See top of sketches
 
 ## Versioning
 
+### Version 1.0.2 / May 2023
+ * added support for Teensy (not fully tested yet)
+
 ### Version 1.0.1 / March 2023
  * added Example8
 
